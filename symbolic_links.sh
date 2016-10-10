@@ -2,6 +2,7 @@
 
 # List of symbolic links to be added to /home/user/
 SYMBOLIC_LINKS=("Images" "Music" "Documents" "Videos" "Downloads" "Pictures")
+CONFIGS=(".git*" ".tmux.conf")
 
 function remove_existing_links {
 	LINK_OR_DIR="$1"
@@ -24,7 +25,13 @@ function main {
 		remove_existing_links "~/$i"
 		ln -s "/media/$USER/MAIN/$i" ~/"$i" 
 	done
-
 }
 
-main
+function restore_configs {
+	for i in "${CONFIGS[@]}"
+	do
+    cp "/media/$USER/MAIN/home/$USER/$i" /home/$USER/
+	done
+}
+
+#main
